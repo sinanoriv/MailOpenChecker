@@ -1,0 +1,40 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+const mysql = require('mysql2/promise');
+const db_setting = {
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database:'mail_open_checker',
+}
+
+app.get('/:user_id/test2', async function (req, res) {
+    app.set("view engine", "ejs");
+    let userIdList = [1,2,3];
+    let data = {
+        "user_id": req.params.user_id
+    }
+    for (let i = 0; i < userIdList.length; i++) {
+        if (req.params.user_id == userIdList[i]) {
+            let connection;
+            try {
+                connection = await mysql.createConnection(db_setting);
+                await connection.beginTransaction();
+                const [row1] = await connection.query('insert into users (mail_address) values (?)', [req.params.user_id]);
+                await connection.commit()
+            } catch (err){
+                await connection.rollback();
+            } finally {
+                connection.end();
+            }
+            res.render('/Users/shinano/myapp/test.ejs', data);
+            return;
+        }        
+    }
+    res.send('404');
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})

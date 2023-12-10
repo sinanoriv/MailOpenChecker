@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MailOpenChecker</title>
+</head>
+<body>
+    <h1>Mail Open checker</h1>
+    <form method="get" action="/save">
+        MailAddress:<br><input type="email" name="mail" size="40"><br>
+        subject:<br><input type="text" name="subject" size="40"><br>
+        main:<br><textarea name="main" cols="40" rows="8"></textarea><br>
+        <button type="submit">send</button>
+    </form>
+    <br>
+    <form method="get" action="/update">
+        <button type="submit">update</button>
+    </form>
+</body>
+</html>
+
+<img src="http://localhost:3000/update?mail_id=3"/>
